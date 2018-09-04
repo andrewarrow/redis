@@ -314,6 +314,12 @@ void punsubscribeCommand(client *c) {
     if (clientSubscriptionsCount(c) == 0) c->flags &= ~CLIENT_PUBSUB;
 }
 
+void publishNoBroadcastCommand(client *c) {
+    int receivers = pubsubPublishMessage(c->argv[1],c->argv[2]);
+    if (!server.cluster_enabled)
+        forceCommandPropagation(c,PROPAGATE_REPL);
+    addReplyLongLong(c,receivers);
+}
 void publishCommand(client *c) {
     int receivers = pubsubPublishMessage(c->argv[1],c->argv[2]);
     if (server.cluster_enabled)

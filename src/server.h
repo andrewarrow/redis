@@ -2056,6 +2056,7 @@ void subscribeCommand(client *c);
 void unsubscribeCommand(client *c);
 void psubscribeCommand(client *c);
 void punsubscribeCommand(client *c);
+void publishNoBroadcastCommand(client *c);
 void publishCommand(client *c);
 void pubsubCommand(client *c);
 void watchCommand(client *c);
